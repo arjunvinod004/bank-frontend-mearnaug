@@ -63,10 +63,10 @@ console.log(this.pswd);
     // 2nd execute
   }
 
-  login(){
+  login(a:any,p:any){
     //alert('login clicked');
-    var acno=this.acno;
-    var pswd=this.pswd;
+    var acno=a.value;
+    var pswd=p.value;
     var userDetails=this.userDetails;
   
      if(acno in userDetails){
