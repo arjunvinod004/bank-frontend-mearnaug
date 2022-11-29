@@ -7,6 +7,8 @@ import { Injectable } from '@angular/core';
 export class DataService {
   // current user
   currentUser="";
+  // current acno
+  currentAcno="";
   
 
   constructor() { }
@@ -42,6 +44,7 @@ export class DataService {
     if(acno in userDetails){
       if(pswd==userDetails[acno]['password']){
         this.currentUser=userDetails[acno]['username']
+        this.currentAcno=acno
         return true;
       }
       else{
@@ -84,8 +87,12 @@ export class DataService {
     var amount=parseInt(amt)
     if(acno in userDetails){
       if(pswd==userDetails[acno]['password']){
-        if(userDetails[acno]['balance']>amount){
+        if(userDetails[acno]['balance']>=amount){
         userDetails[acno]['balance']-=amount;
+        userDetails[acno]['transaction'].push({
+          Type:'debit',
+          Amount:amount
+         })
         return userDetails[acno]['balance']
       }
       
@@ -104,6 +111,9 @@ export class DataService {
 
   }
 
+}
+getTransaction(acno:any){
+  return this.userDetails[acno]['transaction']
 }
 
 }
