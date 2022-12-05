@@ -11,8 +11,33 @@ export class DataService {
   currentAcno="";
   
 
-  constructor() { }
-
+  constructor() {
+    this.getDetails();
+   }
+   // saveDetails()- to store data localstorage
+   saveDetails(){
+    if(this.userDetails){
+      localStorage.setItem('DataBase',JSON.stringify(this.userDetails))
+    }
+    if(this.currentUser){
+      localStorage.setItem('currentUser',JSON.stringify(this.currentUser))
+    }
+    if(this.currentAcno){
+      localStorage.setItem('currentAcno',JSON.stringify(this.currentAcno))
+    }
+   }
+   getDetails(){
+    if(this.userDetails){
+      this.userDetails=JSON.parse(localStorage.getItem('DataBase')|| '')
+    }
+   if(this.currentAcno){
+    this.currentAcno=JSON.parse(localStorage.getItem('currentAcno')|| '')
+   }
+   if(this.currentUser){
+    this.currentUser=JSON.parse(localStorage.getItem('currentUser')|| '')
+   }
+   }
+   
   userDetails:any={
   
     1000:{acno:1000,username:'sanil',password:1000,balance:1000,transaction:[]},
@@ -28,7 +53,7 @@ export class DataService {
     else{
       userDetails[acno]={
         acno:acno,
-        userame:username,
+        username:username,
         password:password,
         balance:0,
         transaction:[]
@@ -36,6 +61,8 @@ export class DataService {
 
       }
       console.log(userDetails);
+     this.saveDetails();
+      
       return true;
     }
   }
@@ -45,6 +72,8 @@ export class DataService {
       if(pswd==userDetails[acno]['password']){
         this.currentUser=userDetails[acno]['username']
         this.currentAcno=acno
+    this.saveDetails();
+      
         return true;
       }
       else{
@@ -68,8 +97,8 @@ export class DataService {
       Amount:amount
      })
      console.log(userDetails);
+    this.saveDetails();
      
-
      return userDetails[acno]['balance']
       }
       else{
@@ -93,6 +122,8 @@ export class DataService {
           Type:'debit',
           Amount:amount
          })
+         console.log(userDetails);
+          this.saveDetails();
         return userDetails[acno]['balance']
       }
       
