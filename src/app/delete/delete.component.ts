@@ -10,6 +10,7 @@ export class DeleteComponent implements OnInit {
 // input()- it is used to hold parent data from component
 @Output() oncancel = new EventEmitter();
 // output()- it is used to hold data from child component
+@Output() ondelete = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -19,6 +20,10 @@ export class DeleteComponent implements OnInit {
    // alert('clicked')
     this.oncancel.emit()
     // oncancel - undefined event
+  }
+  delete(){
+    this.ondelete.emit(this.item)
+   // alert('delete clicked')
   }
  
 

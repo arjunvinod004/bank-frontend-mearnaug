@@ -11,7 +11,8 @@
 }
 
 body {
-    background: #ecf0f3;
+    background: url('https://images.unsplash.com/photo-1580519542036-c47de6196ba5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60');
+    background-size:cover ;
 }
 
 .wrapper {
@@ -21,7 +22,7 @@ body {
     padding: 40px 30px 30px 30px;
     background-color: #ecf0f3;
     border-radius: 15px;
-    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+    /* box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff; */
 }
 
 .logo {
@@ -34,10 +35,10 @@ body {
     height: 80px;
     object-fit: cover;
     border-radius: 50%;
-    box-shadow: 0px 0px 3px #5f5f5f,
+    /* box-shadow: 0px 0px 3px #5f5f5f,
         0px 0px 0px 5px #ecf0f3,
         8px 8px 15px #a7aaa7,
-        -8px -8px 15px #fff;
+        -8px -8px 15px #fff; */
 }
 
 .wrapper .name {
@@ -64,7 +65,7 @@ body {
     padding-left: 10px;
     margin-bottom: 20px;
     border-radius: 20px;
-    box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+    /* box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff; */
 }
 
 .wrapper .form-field .fas {
@@ -78,8 +79,8 @@ body {
     background-color: #03A9F4;
     color: #fff;
     border-radius: 25px;
-    box-shadow: 3px 3px 3px #b1b1b1,
-        -3px -3px 3px #fff;
+    /* box-shadow: 3px 3px 3px #b1b1b1,
+        -3px -3px 3px #fff; */
     letter-spacing: 1.3px;
 }
 

@@ -8,7 +8,7 @@
     <h3>system date and time:{{sdate |date:'short'}}</h3>
 </div>
 <!-- child component -->
-<app-delete [item]="acno" (oncancel)="oncancel()"></app-delete>
+<app-delete [item]="acno" (oncancel)="oncancel()" (ondelete)="ondelete($event)"></app-delete>
 <div class="child" [ngClass]="acno? 'style1':'' ">
     <div class="wrapper">
         <div class="logo">

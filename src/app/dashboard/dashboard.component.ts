@@ -39,15 +39,23 @@ depositForm=this.fb.group({
  
 
   constructor(private ds:DataService,private fb:FormBuilder,private router:Router) {
-    this.user=this.ds.currentUser;
+   // this.user=this.ds.currentUser;
+   if(localStorage.getItem('currentUser')){
+    this.user=JSON.parse(localStorage.getItem('currentUser')||'');
+
+   }
+   
     this.sdate=new Date()
    }
 
   ngOnInit(): void {
-   if(!localStorage.getItem('currentAcno')){
+   if(!localStorage.getItem('currentUser')){
     alert('please login first')
     this.router.navigateByUrl('');
    }
+  // this.user=JSON.parse(localStorage.getItem('currentUser')||'');
+  // console.log(this.user);
+  
   }
 
   deposit(){
@@ -59,21 +67,31 @@ depositForm=this.fb.group({
  var amount=this.depositForm.value.amount;
  
  if(this.depositForm.valid){
-  console.log(this.depositForm.get('acno')?.errors);
-  
-  const result=this.ds.deposit(acno,pswd,amount);
-  if(result){
-   alert(`${amount} is credited... available balance is ${result}`)
+  this.ds.deposit(acno,pswd,amount)
+  .subscribe((result:any)=>{
+alert(result.message);
+  },
+  result=>{
+    alert(result.error.message)
   }
-  else{
-   alert('transaction error')
-  }
- }else{
-  alert('invalid form')
- }
- 
- 
+  )
 }
+}
+ // console.log(this.depositForm.get('acno')?.errors);
+  // const result=this.ds.deposit(acno,pswd,amount);
+  // if(result){
+  //  alert(`${amount} is credited... available balance is ${result}`)
+  // }
+  // else{
+  //  alert('transaction error')
+  // }
+
+//  else{
+//   alert('invalid form')
+//  }
+ 
+ 
+
   withdraw(){
     //alert('clicked')
     
@@ -82,18 +100,28 @@ depositForm=this.fb.group({
     var pswd1=this.withdrawForm.value.pswd1;
     var amount1=this.withdrawForm.value.amount1;
     if(this.withdrawForm.valid){
-      console.log(this.withdrawForm.get('acno')?.errors);
-      const result=this.ds.withdraw(acno1,pswd1,amount1);
-      if(result){
-        alert(`${amount1} is debited... available balance is ${result}`)
-       }
-       else{
-        alert('transaction error')
-       }
-    }else{
-      alert('invalid form')
+     // console.log(this.withdrawForm.get('acno')?.errors);
+      this.ds.withdraw(acno1,pswd1,amount1)
+      .subscribe((result:any)=>{
+        alert(result.message)
+          },
+      result=>{
+            alert(result.error.message)
+          }
+          )
     }
-    }
+  }
+      // if(result){
+      //   alert(`${amount1} is debited... available balance is ${result}`)
+      //  }
+      //  else{
+      //   alert('transaction error')
+      //  }
+   
+    // else{
+    //   alert('invalid form')
+    // }
+   
     logout(){
       // remove username and acno
       localStorage.removeItem('currentAcno')
@@ -107,6 +135,18 @@ depositForm=this.fb.group({
     }
     oncancel(){
       this.acno="";
+    }
+    ondelete(event:any){
+   //alert(event)
+   this.ds.deleteAcc(event)
+   .subscribe((result:any)=>{
+    alert(result.message)
+    this.router.navigateByUrl('');
+   },
+   result=>{
+    alert(result.error.message)
+   }
+   )
     }
   
 

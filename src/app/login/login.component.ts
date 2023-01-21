@@ -75,27 +75,41 @@ console.log(this.pswd);
     
     var acno=this.loginForm.value.acno;
     var pswd=this.loginForm.value.pswd;
-    var userDetails=this.ds.userDetails;
+   // var userDetails=this.ds.userDetails;
   if(this.loginForm.valid){
-    console.log(this.loginForm.get('acno')?.errors);
- const result=this.ds.login(acno,pswd)
-    if(result){
-     alert('login sucessfull');
-     this.router.navigateByUrl('dashboard');
+    //console.log(this.loginForm.get('acno')?.errors);
+ this.ds.login(acno,pswd)
+ .subscribe((result:any)=>{
+  localStorage.setItem('currentUser',JSON.stringify(result.currentUser));
+  localStorage.setItem('currentAcno',JSON.stringify(result.currentAcno));
+  localStorage.setItem('token',JSON.stringify(result.token));
+  alert(result.message);
+  this.router.navigateByUrl('dashboard')
+ },
+ result=>{
+  alert(result.error.message)
+ }
 
-    }
-    else{
-     alert('login failed')
+ )
+}
+}
+}
+    // if(result){
+    //  alert('login sucessfull');
+    //  this.router.navigateByUrl('dashboard');
+
+    // }
+    // else{
+    //  alert('login failed')
     
-    }
+    // }
     
    
-  }else{
-    alert('invalid form')
-  }
+    //else{
+  //   alert('invalid form')
+  // }
      
-    }
-  }
+   
      //if(acno in userDetails){
      //if(pswd==userDetails[acno]['password']){
       
